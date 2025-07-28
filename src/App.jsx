@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import LocationMasterPage from './pages/LocationMasterPage';
+import UserManagementPage from './pages/UserManagementPage';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -41,6 +42,11 @@ function AppLayout() {
         <Route path="/masters/locations" element={
         <ProtectedRoute roles={['SUPER_ADMIN']}>
             <LocationMasterPage />
+        </ProtectedRoute>
+        } />
+        <Route path="/users" element={
+        <ProtectedRoute roles={['SUPER_ADMIN']}>
+            <UserManagementPage />
         </ProtectedRoute>
         } />
             <Route path="/sow" element={
