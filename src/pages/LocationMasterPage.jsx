@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import Table from '../components/Table';
 import CustomModal from '../components/CustomModal';
 import api from '../services/api';
+import { formatDate } from '../utils/dateUtils';
 
 const LocationMasterPage = () => {
   const [locations, setLocations] = useState([]);
@@ -13,7 +14,13 @@ const LocationMasterPage = () => {
   const fetchLocations = async () => {
     try {
       const res = await api.get('/masters/locations');
-      setLocations(res.data);
+      // Format createdAt date and isActive for each location
+      const formatted = res.data.map(loc => ({
+        ...loc,
+        createdAt: formatDate(loc.createdAt),
+        isActive: loc.isActive ? 'Yes' : 'No'
+      }));
+      setLocations(formatted);
     } catch (err) {
       console.error('Failed to fetch locations:', err);
     }
@@ -59,9 +66,8 @@ const LocationMasterPage = () => {
   const columns = [
     { header: 'Location Name', accessor: 'name' },
     { header: 'Created By', accessor: 'createdBy' },
-    { header: 'Created Date', accessor: 'createdDate' },
-    { header: 'Updated By', accessor: 'updatedBy' },
-    { header: 'Updated Date', accessor: 'updatedDate' },
+    { header: 'Created Date', accessor: 'createdAt' },
+    { header: 'Active', accessor: 'isActive' },
   ];
 
   const actions = [
