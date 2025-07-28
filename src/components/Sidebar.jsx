@@ -1,0 +1,65 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+const Sidebar = () => {
+  const { user } = useAuth();
+
+  const links = {
+    'SUPER_ADMIN': [
+      { path: '/users', label: 'User Management' },
+      { path: '/masters/locations', label: 'Location Master' },
+      { path: '/reports', label: 'Reports' }
+    ],
+    'RMT': [
+      { path: '/sow', label: 'SoW Upload' },
+      { path: '/projects', label: 'Projects' },
+      { path: '/allocate', label: 'Resource Allocation' },
+      { path: '/fulfillments', label: 'Fulfillment Tracking' }
+    ],
+    'PM': [
+      { path: '/requests', label: 'Resource Requests' },
+      { path: '/status-update', label: 'Project Status Update' },
+      { path: '/lessons-learned', label: 'Lessons Learned' }
+    ],
+    'Finance Controllers': [
+      { path: '/financial-reports', label: 'Financial Reports' }
+    ],
+    'Practice Heads': [
+      { path: '/approvals', label: 'Approvals' },
+      { path: '/governance', label: 'Governance' }
+    ]
+  };
+
+  return (
+    <aside className="bg-gradient border-end vh-100 p-4 shadow" style={{ width: '260px', minHeight: '100vh' }}>
+      <div className="d-flex align-items-center mb-4">
+        <span className="fs-4 fw-bold text-primary">Navigation</span>
+      </div>
+      <ul className="list-unstyled">
+        {(links[user?.role] || []).map((link, index) => (
+          <li key={index} className="mb-3">
+            <Link
+              to={link.path}
+              className="d-flex align-items-center px-3 py-2 rounded text-decoration-none sidebar-link"
+              style={{ transition: 'background 0.2s', color: '#333' }}
+            >
+              <span className="me-2">
+                <i className="bi bi-chevron-right"></i>
+              </span>
+              <span>{link.label}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <style>{`
+        .sidebar-link:hover {
+          background: #e3f2fd;
+          color: #1976d2;
+        }
+      `}</style>
+    </aside>
+  );
+};
+
+export default Sidebar;
