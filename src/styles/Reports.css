@@ -1,0 +1,8 @@
+.report-card {
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+.report-card:hover {
+  transform: scale(1.03);
+  background-color: #f8f9fa;
+}

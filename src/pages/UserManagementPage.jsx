@@ -11,6 +11,9 @@ const UserManagementPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
     role: ''
   });
   const [editingId, setEditingId] = useState(null);
@@ -29,8 +32,8 @@ const UserManagementPage = () => {
       // Format date columns for readability
       const formatted = res.data.map(user => ({
         ...user,
-        createdDate: formatDate(user.createdDate),
-        updatedDate: formatDate(user.updatedDate)
+        createdAt: formatDate(user.createdAt),
+        updatedAt: formatDate(user.updatedAt)
       }));
       setUsers(formatted);
     } catch (err) {
@@ -43,7 +46,7 @@ const UserManagementPage = () => {
   }, []);
 
   const handleAdd = () => {
-    setFormData({ username: '', email: '', role: '' });
+    setFormData({ username: '', email: '', password: '', firstName: '', lastName: '', role: '' });
     setEditingId(null);
     setModalOpen(true);
   };
@@ -52,6 +55,9 @@ const UserManagementPage = () => {
     setFormData({
       username: user.username,
       email: user.email,
+      password: '', // Do not prefill password
+      firstName: user.firstName || '',
+      lastName: user.lastName || '',
       role: user.role
     });
     setEditingId(user.id);
@@ -83,10 +89,12 @@ const UserManagementPage = () => {
     { header: 'Username', accessor: 'username' },
     { header: 'Email', accessor: 'email' },
     { header: 'Role', accessor: 'role' },
+    { header: 'First Name', accessor: 'firstName' },
+    { header: 'Last Name', accessor: 'lastName' },
     { header: 'Created By', accessor: 'createdBy' },
-    { header: 'Created Date', accessor: 'createdDate' },
+    { header: 'Created Date', accessor: 'createdAt' },
     { header: 'Updated By', accessor: 'updatedBy' },
-    { header: 'Updated Date', accessor: 'updatedDate' }
+    { header: 'Updated Date', accessor: 'updatedAt' }
   ];
 
   const actions = [
@@ -116,6 +124,34 @@ const UserManagementPage = () => {
             className="form-control"
             value={formData.username}
             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            value={formData.password}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            autoComplete="new-password"
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">First Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={formData.firstName}
+            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Last Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={formData.lastName}
+            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
           />
         </div>
         <div className="mb-3">

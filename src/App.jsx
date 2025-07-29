@@ -4,12 +4,15 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SoWPage from './pages/SoWPage';
 import ResourceAllocationPage from './pages/ResourceAllocationPage';
-import ReportsPage from './pages/ReportsPage';
+import ReportsPage from './pages/Reports';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import LocationMasterPage from './pages/LocationMasterPage';
 import UserManagementPage from './pages/UserManagementPage';
+import Reports from './pages/Reports';
+import BenchTrackingReport from './pages/reports/BenchTrackingReport';
+import SpendTrackingReport from './pages/reports/SpendTrackingReport';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -61,11 +64,15 @@ function AppLayout() {
             } />
             <Route path="/reports" element={
               <ProtectedRoute roles={["SUPER_ADMIN", "Finance Controllers"]}>
-                <ReportsPage />
+                <Reports />
               </ProtectedRoute>
             } />
             <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
             <Route path="*" element={<Navigate to="/login" />} />
+            
+            <Route path="/reports/bench-tracking" element={<BenchTrackingReport />} />
+            <Route path="/reports/spend-tracking" element={<SpendTrackingReport />} />
+
           </Routes>
         </main>
       </div>
