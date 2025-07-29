@@ -38,7 +38,7 @@ const ProjectListPage = () => {
               <td>{project.projectCode}</td>
               <td>{project.name}</td>
               <td>{project.clientName}</td>
-              <td>{project.practiceName}</td>
+              <td>{project.practice}</td>
               <td>{project.status}</td>
               <td>{project.startDate ? project.startDate.substring(0, 10) : ''}</td>
               <td>{project.endDate ? project.endDate.substring(0, 10) : ''}</td>
