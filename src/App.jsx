@@ -13,6 +13,9 @@ import UserManagementPage from './pages/UserManagementPage';
 import Reports from './pages/Reports';
 import BenchTrackingReport from './pages/reports/BenchTrackingReport';
 import SpendTrackingReport from './pages/reports/SpendTrackingReport';
+import SowPage from './pages/SoWPage';
+import CreateClientPage from './pages/CreateClientPage';
+import ProjectListPage from './pages/ProjectListPage';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -33,10 +36,31 @@ function AppLayout() {
   ) : (
     <>
       <Header />
-      <div className="d-flex" style={{ minHeight: '100vh' }}>
+      <div
+        className="d-flex align-items-stretch"
+        style={{
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)',
+        }}
+      >
         <Sidebar />
-        <main className="flex-grow-1 p-4 bg-white">
-          <Routes>
+        <main
+          className="flex-grow-1 p-4 d-flex justify-content-center align-items-start"
+          style={{ minHeight: '100vh' }}
+        >
+          <div
+            className="w-100"
+            style={{
+              maxWidth: 1200,
+              background: '#fff',
+              borderRadius: 16,
+              boxShadow: '0 4px 24px 0 rgba(0,0,0,0.08)',
+              padding: 32,
+              marginTop: 32,
+              marginBottom: 32,
+            }}
+          >
+            <Routes>
             <Route path="/dashboard" element={
               <ProtectedRoute roles={["SUPER_ADMIN", "RMT", "PM"]}>
                 <DashboardPage />
@@ -47,6 +71,11 @@ function AppLayout() {
             <LocationMasterPage />
         </ProtectedRoute>
         } />
+        <Route path="/clients" element={
+        <ProtectedRoute roles={['SUPER_ADMIN']}>
+            <CreateClientPage />
+        </ProtectedRoute>
+        } />
         <Route path="/users" element={
         <ProtectedRoute roles={['SUPER_ADMIN']}>
             <UserManagementPage />
@@ -54,7 +83,7 @@ function AppLayout() {
         } />
             <Route path="/sow" element={
               <ProtectedRoute roles={["RMT"]}>
-                <SoWPage />
+                <SowPage />
               </ProtectedRoute>
             } />
             <Route path="/allocate" element={
@@ -72,8 +101,10 @@ function AppLayout() {
             
             <Route path="/reports/bench-tracking" element={<BenchTrackingReport />} />
             <Route path="/reports/spend-tracking" element={<SpendTrackingReport />} />
+            <Route path="/projects" element={<ProjectListPage />} />
 
-          </Routes>
+            </Routes>
+          </div>
         </main>
       </div>
     </>

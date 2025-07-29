@@ -9,7 +9,8 @@ const Sidebar = () => {
     'SUPER_ADMIN': [
       { path: '/users', label: 'User Management' },
       { path: '/masters/locations', label: 'Location Master' },
-      { path: '/reports', label: 'Reports' }
+      { path: '/reports', label: 'Reports' },
+      { path: '/clients', label: 'Clients' }
     ],
     'RMT': [
       { path: '/sow', label: 'SoW Upload' },
