@@ -9,13 +9,16 @@ const Sidebar = () => {
     'SUPER_ADMIN': [
       { path: '/users', label: 'User Management' },
       { path: '/masters/locations', label: 'Location Master' },
+      { path: '/masters/resources', label: 'Resource Master' },
       { path: '/reports', label: 'Reports' },
-      { path: '/clients', label: 'Clients' }
+      { path: '/clients', label: 'Clients' },
+      { path: '/shifts', label: 'Shifts' }
     ],
     'RMT': [
       { path: '/sow', label: 'SoW Upload' },
       { path: '/projects', label: 'Projects' },
       { path: '/allocate', label: 'Resource Allocation' },
+      { path: '/request-fulfillments', label: 'Fulfillment Request' },
       { path: '/fulfillments', label: 'Fulfillment Tracking' }
     ],
     'PM': [

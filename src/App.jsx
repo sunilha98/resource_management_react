@@ -16,6 +16,10 @@ import SpendTrackingReport from './pages/reports/SpendTrackingReport';
 import SowPage from './pages/SoWPage';
 import CreateClientPage from './pages/CreateClientPage';
 import ProjectListPage from './pages/ProjectListPage';
+import ResourceMasterPage from './pages/ResourceMasterPage';
+import FulfillmentTrackingPage from './pages/FulfillmentTrackingPage';
+import FulfillmentRequestForm from './pages/FulfillmentRequestForm';
+import ShiftCreationPage from './pages/ShiftCreationPage';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -76,6 +80,16 @@ function AppLayout() {
             <CreateClientPage />
         </ProtectedRoute>
         } />
+        <Route path="/masters/resources" element={
+        <ProtectedRoute roles={['SUPER_ADMIN']}>
+            <ResourceMasterPage />
+        </ProtectedRoute>
+        } />
+        <Route path="/shifts" element={
+        <ProtectedRoute roles={['SUPER_ADMIN']}>
+            <ShiftCreationPage />
+        </ProtectedRoute>
+        } />
         <Route path="/users" element={
         <ProtectedRoute roles={['SUPER_ADMIN']}>
             <UserManagementPage />
@@ -102,6 +116,8 @@ function AppLayout() {
             <Route path="/reports/bench-tracking" element={<BenchTrackingReport />} />
             <Route path="/reports/spend-tracking" element={<SpendTrackingReport />} />
             <Route path="/projects" element={<ProjectListPage />} />
+            <Route path="/fulfillments" element={<FulfillmentTrackingPage />} />
+            <Route path="/request-fulfillments" element={<FulfillmentRequestForm />} />
 
             </Routes>
           </div>
