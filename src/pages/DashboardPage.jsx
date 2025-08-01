@@ -11,9 +11,9 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const res = await api.get('/dashboard/summary');
-        setStats(res.data.stats);
-        setRecentActivity(res.data.recentActivity);
+        const res = await api.get('/dashboard/metrics');
+        setStats(res.data);
+        // setRecentActivity(res.data.recentActivity);
       } catch (err) {
         console.error('Error fetching dashboard data:', err);
       }
@@ -29,16 +29,16 @@ const DashboardPage = () => {
         <div className="col-md-3">
           <div className="card text-white bg-primary mb-3">
             <div className="card-body">
-              <h5 className="card-title">Total Projects</h5>
-              <p className="card-text">{stats.totalProjects || 0}</p>
+              <h5 className="card-title">Active Projects</h5>
+              <p className="card-text">{stats.activeProjects || 0}</p>
             </div>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card text-white bg-success mb-3">
             <div className="card-body">
-              <h5 className="card-title">Resources Allocated</h5>
-              <p className="card-text">{stats.allocatedResources || 0}</p>
+              <h5 className="card-title">Total Resources</h5>
+              <p className="card-text">{stats.totalResources || 0}</p>
             </div>
           </div>
         </div>
@@ -47,14 +47,6 @@ const DashboardPage = () => {
             <div className="card-body">
               <h5 className="card-title">Bench Resources</h5>
               <p className="card-text">{stats.benchResources || 0}</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card text-white bg-danger mb-3">
-            <div className="card-body">
-              <h5 className="card-title">Open SoWs</h5>
-              <p className="card-text">{stats.openSows || 0}</p>
             </div>
           </div>
         </div>

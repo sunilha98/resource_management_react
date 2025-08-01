@@ -21,7 +21,7 @@ const UserManagementPage = () => {
   const roles = [
     'SUPER_ADMIN',
     'RMT',
-    'PM',
+    'PROJECT_MANAGER',
     'Finance Controllers',
     'Practice Heads'
   ];

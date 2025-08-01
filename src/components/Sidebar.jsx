@@ -21,13 +21,11 @@ const Sidebar = () => {
       { path: '/request-fulfillments', label: 'Fulfillment Request' },
       { path: '/fulfillments', label: 'Fulfillment Tracking' },
       { path: '/resource-release', label: 'Resource Release Request' },
-      { path: '/release-requests', label: 'Resource Release List' },
-      { path: '/lessons', label: 'Lessons Learned' }
+      { path: '/lessons', label: 'Lessons' }
     ],
-    'PM': [
-      { path: '/requests', label: 'Resource Requests' },
+    'PROJECT_MANAGER': [
+      { path: '/release-requests', label: 'Resource Requests' },
       { path: '/status-update', label: 'Project Status Update' },
-      { path: '/lessons-learned', label: 'Lessons Learned' }
     ],
     'Finance Controllers': [
       { path: '/financial-reports', label: 'Financial Reports' }
@@ -39,7 +37,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="bg-gradient border-end vh-100 p-4 shadow" style={{ width: '260px', minHeight: '100vh' }}>
+    <aside className="bg-gradient border-end p-4 shadow" style={{ width: '260px', minHeight: '100vh' }}>
       <div className="d-flex align-items-center mb-4">
         <span className="fs-4 fw-bold text-primary">Navigation</span>
       </div>

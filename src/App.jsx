@@ -24,6 +24,7 @@ import ResourceReleasePage from './pages/ResourceReleasePage';
 import ReleaseRequestsList from './pages/ReleaseRequestsList';
 import LessonLearnedForm from './components/LessonLearnedForm';
 import LessonsLearnedPage from './pages/LessonsLearnedPage';
+import ProjectStatusPage from './pages/ProjectStatusPage';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -70,7 +71,7 @@ function AppLayout() {
           >
             <Routes>
             <Route path="/dashboard" element={
-              <ProtectedRoute roles={["SUPER_ADMIN", "RMT", "PM"]}>
+              <ProtectedRoute roles={["SUPER_ADMIN", "RMT", "PROJECT_MANAGER"]}>
                 <DashboardPage />
               </ProtectedRoute>
             } />
@@ -125,6 +126,7 @@ function AppLayout() {
             <Route path="/resource-release" element={<ResourceReleasePage />} />
             <Route path="/release-requests" element={<ReleaseRequestsList />} />
             <Route path="/lessons" element={<LessonsLearnedPage />} />
+            <Route path="/status-update" element={<ProjectStatusPage />} />
 
             </Routes>
           </div>
@@ -136,11 +138,11 @@ function AppLayout() {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <AppLayout />
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 
