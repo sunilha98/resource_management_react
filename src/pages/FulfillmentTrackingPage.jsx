@@ -4,13 +4,16 @@ import UpdateFulfillmentModal from '../components/UpdateFulfillmentModal';
 
 const FulfillmentTrackingPage = () => {
   const [requests, setRequests] = useState([]);
+  const [filteredRequests, setFilteredRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState(null);
+  const [statusFilter, setStatusFilter] = useState('ALL');
 
   const fetchRequests = async () => {
     try {
       const response = await api.get('/fulfillment-requests');
       setRequests(response.data);
+      setFilteredRequests(response.data);
     } catch (error) {
       console.error('Error fetching fulfillment requests:', error);
     } finally {
@@ -21,6 +24,14 @@ const FulfillmentTrackingPage = () => {
   useEffect(() => {
     fetchRequests();
   }, []);
+
+  useEffect(() => {
+    if (statusFilter === 'ALL') {
+      setFilteredRequests(requests);
+    } else {
+      setFilteredRequests(requests.filter(req => req.status === statusFilter));
+    }
+  }, [statusFilter, requests]);
 
   const handleSaveUpdate = async (updatedData) => {
     try {
@@ -37,6 +48,22 @@ const FulfillmentTrackingPage = () => {
   return (
     <div className="container mt-4">
       <h2>Fulfillment Tracking</h2>
+
+      {/* Filter Dropdown */}
+      <div className="mb-3">
+        <label className="form-label me-2">Filter by Status:</label>
+        <select
+          className="form-select w-auto d-inline-block"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="ALL">All</option>
+          <option value="OPEN">Open</option>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="FULFILLED">Fulfilled</option>
+        </select>
+      </div>
+
       {loading ? (
         <p>Loading requests...</p>
       ) : (
@@ -57,7 +84,7 @@ const FulfillmentTrackingPage = () => {
             </tr>
           </thead>
           <tbody>
-            {requests.map((req) => (
+            {filteredRequests.map((req) => (
               <tr key={req.id}>
                 <td>{req.projectName}</td>
                 <td>{req.title}</td>

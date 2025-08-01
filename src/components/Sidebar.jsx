@@ -19,7 +19,10 @@ const Sidebar = () => {
       { path: '/projects', label: 'Projects' },
       { path: '/allocate', label: 'Resource Allocation' },
       { path: '/request-fulfillments', label: 'Fulfillment Request' },
-      { path: '/fulfillments', label: 'Fulfillment Tracking' }
+      { path: '/fulfillments', label: 'Fulfillment Tracking' },
+      { path: '/resource-release', label: 'Resource Release Request' },
+      { path: '/release-requests', label: 'Resource Release List' },
+      { path: '/lessons', label: 'Lessons Learned' }
     ],
     'PM': [
       { path: '/requests', label: 'Resource Requests' },
