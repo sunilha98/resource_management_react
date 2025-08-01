@@ -38,9 +38,9 @@ const Sidebar = () => {
 
   return (
     <aside className="bg-gradient border-end p-4 shadow" style={{ width: '260px', minHeight: '100vh' }}>
-      <div className="d-flex align-items-center mb-4">
+      {/* <div className="d-flex align-items-center mb-4">
         <span className="fs-4 fw-bold text-primary">Navigation</span>
-      </div>
+      </div> */}
       <ul className="list-unstyled">
         {(links[user?.role] || []).map((link, index) => (
           <li key={index} className="mb-3">
