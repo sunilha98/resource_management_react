@@ -25,6 +25,15 @@ import ReleaseRequestsList from './pages/ReleaseRequestsList';
 import LessonLearnedForm from './components/LessonLearnedForm';
 import LessonsLearnedPage from './pages/LessonsLearnedPage';
 import ProjectStatusPage from './pages/ProjectStatusPage';
+import ProposedProjectsReport from './pages/reports/ProposedProjectsReport';
+import RiskIssuesReport from './pages/reports/RisksIssuesReport';
+import ResourceAllocationReport from './pages/reports/ResourceAllocationReport';
+import ForecastingReport from './pages/reports/ForecastingReport';
+import FinancialsMetricsReport from './pages/reports/FinancialMetricsReport';
+import GovernanceReport from './pages/reports/GovernanceReport';
+import PortfolioReport from './pages/reports/PortfolioDashboard';
+import InFlightProjectsReport from './pages/reports/InFlightProjectsReport';
+import LessonsLearnedReport from './pages/reports/LessonsLearnedReport';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -120,6 +129,17 @@ function AppLayout() {
             
             <Route path="/reports/bench-tracking" element={<BenchTrackingReport />} />
             <Route path="/reports/spend-tracking" element={<SpendTrackingReport />} />
+            <Route path="/reports/proposed" element={<ProposedProjectsReport />} />
+            <Route path="/reports/project-status" element={<ProjectListPage />} />
+            <Route path="/reports/risks-issues" element={<RiskIssuesReport />} />
+            <Route path="/reports/resource-allocation" element={<ResourceAllocationReport />} />
+            <Route path="/reports/forecasting" element={<ForecastingReport />} />
+            <Route path="/reports/financial-metrics" element={<FinancialsMetricsReport />} />
+            <Route path="/reports/governance" element={<GovernanceReport />} />
+            <Route path="/reports/portfolio" element={<PortfolioReport />} />
+            <Route path="/reports/lessons-learned" element={<LessonsLearnedReport />} />
+            <Route path="/reports/in-flight" element={<InFlightProjectsReport />} />
+
             <Route path="/projects" element={<ProjectListPage />} />
             <Route path="/fulfillments" element={<FulfillmentTrackingPage />} />
             <Route path="/request-fulfillments" element={<FulfillmentRequestForm />} />

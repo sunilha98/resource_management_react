@@ -14,8 +14,6 @@ const reportsList = [
   { name: 'Financial Metrics', path: '/reports/financial-metrics' },
   { name: 'Governance', path: '/reports/governance' },
   { name: 'Portfolio Dashboard', path: '/reports/portfolio' },
-  { name: 'Notifications & Alerts', path: '/reports/alerts' },
-  { name: 'Change Requests', path: '/reports/change-requests' },
   { name: 'Lessons Learned', path: '/reports/lessons-learned' },
 ];
 

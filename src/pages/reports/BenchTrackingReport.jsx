@@ -7,11 +7,10 @@ const BenchTrackingReport = () => {
   const [loading, setLoading] = useState(true);
 
   const columns = [
-    { header: 'Resource Name', accessor: 'resourceName' },
+    { header: 'Resource First Name', accessor: 'firstName' },
+    { header: 'Resource Last Name', accessor: 'lastName' },
     { header: 'Title', accessor: 'title' },
-    { header: 'Skill', accessor: 'skill' },
-    { header: 'Last Project', accessor: 'lastProject' },
-    { header: 'Bench Since', accessor: 'benchSince' },
+    { header: 'Skill', accessor: 'skills' },
   ];
 
   useEffect(() => {
