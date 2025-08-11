@@ -34,6 +34,7 @@ import GovernanceReport from './pages/reports/GovernanceReport';
 import PortfolioReport from './pages/reports/PortfolioDashboard';
 import InFlightProjectsReport from './pages/reports/InFlightProjectsReport';
 import LessonsLearnedReport from './pages/reports/LessonsLearnedReport';
+import RoleManagement from './pages/RoleManagement';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -113,6 +114,11 @@ function AppLayout() {
         <Route path="/users" element={
         <ProtectedRoute roles={['SUPER_ADMIN']}>
             <UserManagementPage />
+        </ProtectedRoute>
+        } />
+         <Route path="/roles" element={
+        <ProtectedRoute roles={['SUPER_ADMIN']}>
+            <RoleManagement />
         </ProtectedRoute>
         } />
             <Route path="/sow" element={

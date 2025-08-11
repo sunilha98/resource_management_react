@@ -8,6 +8,7 @@ const Sidebar = () => {
   const links = {
     'SUPER_ADMIN': [
       { path: '/users', label: 'User Management' },
+      { path: '/roles', label: 'Role Management' },
       { path: '/masters/locations', label: 'Location Master' },
       { path: '/masters/resources', label: 'Resource Master' },
       { path: '/reports', label: 'Reports' },
