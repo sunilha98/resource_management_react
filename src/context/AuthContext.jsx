@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 const AuthContext = createContext();
 
@@ -21,7 +22,14 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
+  const logout = async () => {
+
+    try {
+      await api.post('/auth/logout');
+    } catch (error) {
+      console.error("Error while logging out:", error);
+    }
+
     setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
