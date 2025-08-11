@@ -14,7 +14,7 @@ const Header = () => {
       <div className="ms-auto d-flex align-items-center">
         <span className="text-white me-3">
           <i className="bi bi-person-circle me-1"></i>
-          {user?.username} <span className="badge bg-light text-dark ms-2">{user?.role}</span>
+          {user?.username} <span className="badge bg-light text-dark ms-2">{user?.roles}</span>
         </span>
         <button className="btn btn-light btn-sm px-3" onClick={logout}>
           <i className="bi bi-box-arrow-right me-1"></i> Logout

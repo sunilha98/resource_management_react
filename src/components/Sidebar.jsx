@@ -42,7 +42,7 @@ const Sidebar = () => {
         <span className="fs-4 fw-bold text-primary">Navigation</span>
       </div> */}
       <ul className="list-unstyled">
-        {(links[user?.role] || []).map((link, index) => (
+        {(links[user?.roles] || []).map((link, index) => (
           <li key={index} className="mb-3">
             <Link
               to={link.path}

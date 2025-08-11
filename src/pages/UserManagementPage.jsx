@@ -4,36 +4,27 @@ import Table from '../components/Table';
 import CustomModal from '../components/CustomModal';
 import api from '../services/api';
 import { formatDate } from '../utils/dateUtils';
+import Select from 'react-select';
+
 
 const UserManagementPage = () => {
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    firstName: '',
-    lastName: '',
-    role: ''
+    roles: [],
   });
   const [editingId, setEditingId] = useState(null);
-
-  const roles = [
-    'SUPER_ADMIN',
-    'RMT',
-    'PROJECT_MANAGER',
-    'Finance Controllers',
-    'Practice Heads'
-  ];
 
   const fetchUsers = async () => {
     try {
       const res = await api.get('/users');
-      // Format date columns for readability
       const formatted = res.data.map(user => ({
         ...user,
-        createdAt: formatDate(user.createdAt),
-        updatedAt: formatDate(user.updatedAt)
+        roles: Array.isArray(user.roles) ? user.roles.join(', ') : user.roles
       }));
       setUsers(formatted);
     } catch (err) {
@@ -41,28 +32,37 @@ const UserManagementPage = () => {
     }
   };
 
+  const fetchRoles = async () => {
+    try {
+      const res = await api.get('/roles');
+      setRoles(res.data.map(role => role.name));
+    } catch (err) {
+      console.error('Failed to fetch roles:', err);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
+    fetchRoles();
   }, []);
 
-  const handleAdd = () => {
-    setFormData({ username: '', email: '', password: '', firstName: '', lastName: '', role: '' });
-    setEditingId(null);
-    setModalOpen(true);
-  };
+const handleAdd = () => {
+  setFormData({ username: '', email: '', password: '', roles: [] });
+  setEditingId(null);
+  setModalOpen(true);
+};
 
-  const handleEdit = (user) => {
-    setFormData({
-      username: user.username,
-      email: user.email,
-      password: '', // Do not prefill password
-      firstName: user.firstName || '',
-      lastName: user.lastName || '',
-      role: user.role
-    });
-    setEditingId(user.id);
-    setModalOpen(true);
-  };
+const handleEdit = (user) => {
+  setFormData({
+    username: user.username,
+    email: user.email,
+    password: '',
+    roles: Array.isArray(user.roles) ? user.roles : [user.roles]
+  });
+  setEditingId(user.id);
+  setModalOpen(true);
+};
+
 
   const handleDelete = async (user) => {
     if (window.confirm(`Delete user "${user.username}"?`)) {
@@ -88,13 +88,7 @@ const UserManagementPage = () => {
   const columns = [
     { header: 'Username', accessor: 'username' },
     { header: 'Email', accessor: 'email' },
-    { header: 'Role', accessor: 'role' },
-    { header: 'First Name', accessor: 'firstName' },
-    { header: 'Last Name', accessor: 'lastName' },
-    { header: 'Created By', accessor: 'createdBy' },
-    { header: 'Created Date', accessor: 'createdAt' },
-    { header: 'Updated By', accessor: 'updatedBy' },
-    { header: 'Updated Date', accessor: 'updatedAt' }
+    { header: 'Role', accessor: 'roles' }
   ];
 
   const actions = [
@@ -137,24 +131,6 @@ const UserManagementPage = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">First Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={formData.firstName}
-            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Last Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={formData.lastName}
-            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
           <label className="form-label">Email</label>
           <input
             type="email"
@@ -164,17 +140,18 @@ const UserManagementPage = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Role</label>
-          <select
-            value={formData.role}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          >
-            <option value="">Select Role</option>
-            {roles.map((role, idx) => (
-              <option key={idx} value={role}>{role}</option>
-            ))}
-          </select>
-        </div>
+  <label className="form-label">Roles</label>
+  <Select
+  isMulti
+  options={roles.map(role => ({ value: role, label: role }))}
+  value={formData.roles.map(r => ({ value: r, label: r }))}
+  onChange={(selected) => setFormData({
+    ...formData,
+    roles: selected.map(s => s.value)
+  })}
+/>
+</div>
+
       </CustomModal>
     </>
   );
